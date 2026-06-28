@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Траст Лидс · База знаний — бесплатные инструменты для работы с офферами</title>
+<meta name="description" content="Обучающая платформа Траст Лидс: пошаговые инструкции, как использовать бесплатные инструменты для размещения вакансий и работы с офферами — без вложений.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0A0118; --bg2:#0D0221; --bg3:#100425; --bg-top:#1B0A3A;
+    --violet:#7C3AED; --violet-l:#8B5CF6; --violet-d:#6D28D9;
+    --indigo:#4F46E5; --blue:#3B82F6; --blue-d:#2563EB;
+    --lav:#A78BFA; --cyan:#22D3EE;
+    --amber:#FCD34D;
+    --text:#E9E4FB; --text2:#B6ACD6; --text3:#7E739C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  ::selection{background:rgba(124,58,237,.5);color:#fff}
+  a{color:inherit}
+
+  @keyframes gradShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  @keyframes pulseGlow{0%,100%{box-shadow:0 0 36px rgba(124,58,237,.45),0 0 0 0 rgba(124,58,237,.35)}50%{box-shadow:0 0 70px rgba(124,58,237,.75),0 0 0 14px rgba(124,58,237,0)}}
+  @keyframes floatBlob{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.12)}}
+  @keyframes floatBlob2{0%,100%{transform:translate(0,0) scale(1.05)}50%{transform:translate(-50px,40px) scale(.92)}}
+  @keyframes cometPulse{0%,100%{box-shadow:0 0 18px 4px rgba(34,211,238,.9),0 0 50px 10px rgba(124,58,237,.7)}50%{box-shadow:0 0 30px 8px rgba(34,211,238,1),0 0 70px 18px rgba(124,58,237,.85)}}
+  @keyframes spinSlow{to{transform:rotate(360deg)}}
+
+  /* ===== layout shell ===== */
+  .page{position:relative;width:100%;overflow:hidden;background:radial-gradient(140% 90% at 50% -10%,#1B0A3A 0%,#100425 38%,#0A0118 78%)}
+
+  /* ===== cosmic background ===== */
+  .cosmos{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .cosmos canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .blob{position:absolute;border-radius:50%}
+  .blob-1{top:-12%;left:-8%;width:48vw;height:48vw;background:radial-gradient(circle,rgba(124,58,237,.55),rgba(124,58,237,0) 70%);filter:blur(60px);animation:floatBlob 18s ease-in-out infinite}
+  .blob-2{top:30%;right:-12%;width:46vw;height:46vw;background:radial-gradient(circle,rgba(59,130,246,.42),rgba(59,130,246,0) 70%);filter:blur(70px);animation:floatBlob2 22s ease-in-out infinite}
+  .blob-3{bottom:-14%;left:24%;width:42vw;height:42vw;background:radial-gradient(circle,rgba(34,211,238,.3),rgba(34,211,238,0) 70%);filter:blur(80px);animation:floatBlob 26s ease-in-out infinite}
+
+  /* ===== nav ===== */
+  .nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px clamp(20px,5vw,56px);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:linear-gradient(180deg,rgba(10,1,24,.7),rgba(10,1,24,.25));border-bottom:1px solid rgba(167,139,250,.12)}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo-cube{width:34px;height:34px;border-radius:10px;background:conic-gradient(from 180deg,#7C3AED,#3B82F6,#22D3EE,#7C3AED);box-shadow:0 0 22px rgba(124,58,237,.7);animation:spinSlow 12s linear infinite;flex:none}
+  .brand-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;letter-spacing:.5px;color:#fff}
+  .brand-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8DECFB;padding:3px 9px;border-radius:999px;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.32)}
+  .nav-links{display:flex;align-items:center;gap:clamp(14px,2vw,28px)}
+  .nav-links a{font-size:15px;font-weight:600;color:var(--text2);text-decoration:none;transition:color .25s;white-space:nowrap}
+  .nav-links a:hover{color:#fff}
+  .nav-right{display:flex;align-items:center;gap:14px}
+  .nav-burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid rgba(167,139,250,.3);background:rgba(255,255,255,.04);color:#fff;font-size:20px;cursor:pointer;align-items:center;justify-content:center;transition:background .25s,border-color .25s}
+  .nav-burger:hover{background:rgba(124,58,237,.2);border-color:#22D3EE}
+  @media (max-width:920px){
+    .brand-tag{display:none}
+    .nav-links{position:fixed;inset:0 0 0 auto;width:min(300px,82vw);flex-direction:column;align-items:flex-start;justify-content:center;gap:26px;padding:80px 36px;background:linear-gradient(160deg,rgba(28,12,58,.98),rgba(13,2,33,.99));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-left:1px solid rgba(167,139,250,.2);box-shadow:-20px 0 60px rgba(0,0,0,.5);transform:translateX(105%);transition:transform .35s ease;z-index:60}
+    .nav-links.open{transform:translateX(0)}
+    .nav-links a{font-size:19px;color:#fff}
+    .nav-burger{display:flex}
+  }
+  .sidenav{position:fixed;left:24px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:18px;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s ease}
+  .sidenav.visible{opacity:1;visibility:visible}
+  .sidenav-dot{position:relative;width:13px;height:13px;border-radius:50%;background:rgba(167,139,250,.3);border:1px solid rgba(167,139,250,.55);transition:transform .3s,background .3s,box-shadow .3s;display:block}
+  .sidenav-dot:hover{background:rgba(34,211,238,.6);transform:scale(1.25)}
+  .sidenav-dot.active{background:#22D3EE;border-color:#22D3EE;box-shadow:0 0 12px rgba(34,211,238,.8);transform:scale(1.3)}
+  .sidenav-label{position:absolute;left:26px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:13px;font-weight:600;color:#fff;background:rgba(13,2,33,.92);border:1px solid rgba(167,139,250,.25);padding:6px 12px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .25s ease}
+  .sidenav-dot:hover .sidenav-label{opacity:1}
+  @media (max-width:1180px){ .sidenav{display:none} }
+
+  /* ===== buttons ===== */
+  .btn{font-family:'Manrope',sans-serif;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;border-radius:999px}
+  .btn-grad{color:#fff;background:linear-gradient(120deg,#7C3AED,#4F46E5,#3B82F6);background-size:200% 200%;animation:gradShift 7s ease infinite}
+  .btn-nav{font-weight:700;font-size:14px;padding:11px 22px;box-shadow:0 0 24px rgba(124,58,237,.5);transition:transform .3s,box-shadow .3s}
+  .btn-nav:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(34,211,238,.6)}
+  .btn-hero{font-weight:700;font-size:17px;padding:19px 44px;animation:gradShift 7s ease infinite,pulseGlow 3.4s ease-in-out infinite;transition:transform .35s}
+  .btn-hero:hover{transform:scale(1.05)}
+  .btn-cta{font-weight:700;font-size:18px;padding:20px 50px;animation:gradShift 7s ease infinite,pulseGlow 3.4s ease-in-out infinite;transition:transform .35s}
+  .btn-cta:hover{transform:scale(1.06)}
+  .btn-outline{font-weight:600;font-size:17px;color:var(--text);padding:19px 36px;border:1px solid rgba(167,139,250,.32);background:rgba(255,255,255,.03);backdrop-filter:blur(10px);transition:border-color .3s,background .3s}
+  .btn-outline:hover{border-color:rgba(34,211,238,.6);background:rgba(124,58,237,.12)}
+
+  /* ===== typography ===== */
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8DECFB;margin-bottom:18px;padding:7px 16px;border-radius:999px;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.35);box-shadow:0 0 22px rgba(34,211,238,.18)}
+  .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;flex:none}
+  .h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(30px,4.6vw,58px);line-height:1.08;letter-spacing:-1px;color:#fff}
+  .lead{font-size:clamp(15px,1.7vw,19px);line-height:1.65;color:var(--text2)}
+
+  /* ===== sections ===== */
+  .section{position:relative;z-index:1;padding:clamp(70px,10vh,120px) clamp(20px,5vw,40px)}
+  section[id]{scroll-margin-top:88px}
+  .wrap{max-width:1180px;margin:0 auto}
+  .head{text-align:center;max-width:780px;margin:0 auto 56px}
+
+  /* ===== hero ===== */
+  .hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px clamp(20px,5vw,40px) 110px}
+  .hero-inner{max-width:1000px}
+  .badge{display:inline-flex;align-items:center;gap:9px;padding:8px 18px;border-radius:999px;border:1px solid rgba(167,139,250,.3);background:rgba(124,58,237,.1);backdrop-filter:blur(10px);font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--lav);margin-bottom:30px}
+  .badge-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px #22D3EE}
+  .hero h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(38px,7vw,90px);line-height:1.03;letter-spacing:-1.5px;color:#fff;margin-bottom:26px}
+  .grad-text{background:linear-gradient(110deg,#A78BFA,#7C3AED,#3B82F6,#22D3EE);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradShift 8s ease infinite}
+  .hero p{font-size:clamp(16px,2vw,21px);line-height:1.6;color:var(--text2);max-width:720px;margin:0 auto 42px}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+
+  /* ===== glass cards grid ===== */
+  .grid{display:grid;gap:22px}
+  .grid-3{grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
+  .card{padding:30px;border-radius:22px;background:rgba(124,58,237,.07);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(167,139,250,.18);box-shadow:0 10px 44px rgba(10,1,24,.5);transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease}
+  .card:hover{transform:translateY(-7px);border-color:rgba(34,211,238,.5);box-shadow:0 16px 56px rgba(124,58,237,.35)}
+  .card-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;background:linear-gradient(135deg,rgba(124,58,237,.4),rgba(59,130,246,.3));border:1px solid rgba(167,139,250,.3);margin-bottom:18px}
+  .card h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:20px;color:#fff;margin-bottom:10px}
+  .card p{font-size:15px;line-height:1.6;color:var(--text2)}
+
+  /* ===== tool cards ===== */
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:22px;max-width:1000px;margin:0 auto}
+  .tool-card{position:relative;display:flex;flex-direction:column;padding:32px 30px;border-radius:24px;background:rgba(124,58,237,.07);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(167,139,250,.18);box-shadow:0 10px 44px rgba(10,1,24,.5);transition:transform .4s,border-color .4s,box-shadow .4s}
+  .tool-card:hover{transform:translateY(-7px);border-color:rgba(34,211,238,.5);box-shadow:0 16px 56px rgba(124,58,237,.35)}
+  .tool-card.soon{opacity:.78}
+  .tool-card.soon:hover{transform:none;border-color:rgba(167,139,250,.18);box-shadow:0 10px 44px rgba(10,1,24,.5)}
+  .tool-logo{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#fff;background:linear-gradient(135deg,rgba(124,58,237,.5),rgba(59,130,246,.4));border:1px solid rgba(167,139,250,.3);margin-bottom:18px}
+  .tool-num{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--lav);margin-bottom:10px}
+  .tool-card h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:22px;color:#fff;margin-bottom:10px}
+  .tool-desc{font-size:15px;line-height:1.6;color:var(--text2);flex:1;margin-bottom:22px}
+  .tool-link{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;font-weight:700;font-size:15px;color:#fff;text-decoration:none;padding:12px 24px;border-radius:999px;background:linear-gradient(120deg,#7C3AED,#3B82F6);box-shadow:0 0 20px rgba(124,58,237,.4);transition:transform .3s}
+  .tool-link:hover{transform:scale(1.04)}
+  .tool-link.muted{background:rgba(255,255,255,.05);box-shadow:none;border:1px solid rgba(167,139,250,.25);color:var(--text2);cursor:default}
+  .tool-link.muted:hover{transform:none}
+  .badge-pill{position:absolute;top:20px;right:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+  .badge-live{background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.45);color:#8DECFB}
+  .badge-soon{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.42);color:var(--amber)}
+
+  /* ===== article ===== */
+  .article{max-width:880px;margin:0 auto}
+  .article .eyebrow{margin-bottom:16px}
+  .article h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,4.4vw,48px);line-height:1.1;letter-spacing:-1px;color:#fff;margin-bottom:18px}
+  .article .article-lead{font-size:clamp(16px,1.9vw,20px);line-height:1.65;color:var(--text2);margin-bottom:8px}
+  .prose{font-size:16px;line-height:1.75;color:var(--text2)}
+  .prose p{margin-bottom:16px}
+  .prose strong{color:#E9E4FB;font-weight:700}
+  .prose a{color:var(--cyan);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+  .subhead{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(20px,2.6vw,26px);color:#fff;margin:40px 0 16px;letter-spacing:-.5px}
+
+  /* ===== prep panel (prominent prerequisite) ===== */
+  .prep{position:relative;margin:24px 0 4px;padding:clamp(24px,4vw,40px);border-radius:26px;background:linear-gradient(135deg,rgba(124,58,237,.18),rgba(34,211,238,.08));border:1px solid rgba(34,211,238,.34);box-shadow:0 0 60px rgba(34,211,238,.2),0 14px 50px rgba(10,1,24,.5)}
+  .prep-label{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8DECFB;margin-bottom:14px;padding:6px 14px;border-radius:999px;background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.4)}
+  .prep-label::before{content:'';width:6px;height:6px;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;flex:none}
+  .prep-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,3.2vw,32px);line-height:1.12;color:#fff;margin-bottom:14px;letter-spacing:-.5px}
+  .prep .prose p{font-size:16px}
+  .prep-btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:16px;color:#fff;text-decoration:none;padding:15px 30px;border-radius:999px;background:linear-gradient(120deg,#7C3AED,#4F46E5,#3B82F6);background-size:200% 200%;animation:gradShift 7s ease infinite;box-shadow:0 0 30px rgba(124,58,237,.55);transition:transform .3s;margin-top:8px}
+  .prep-btn:hover{transform:translateY(-2px)}
+  .prep-sub{margin-top:22px;padding:20px 22px;border-radius:18px;background:rgba(124,58,237,.07);border:1px solid rgba(167,139,250,.22)}
+  .prep-sub h4{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:9px}
+  .prep-link{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:#fff;text-decoration:none;padding:12px 24px;border-radius:999px;background:linear-gradient(120deg,#7C3AED,#3B82F6);box-shadow:0 0 20px rgba(124,58,237,.4);transition:transform .3s;margin:6px 0 14px}
+  .prep-link:hover{transform:scale(1.04)}
+  .prep a.prep-btn,.prep a.prep-link{text-decoration:none}
+
+  /* ===== callouts ===== */
+  .callout{margin:22px 0;padding:18px 20px;border-radius:16px;display:flex;gap:14px;align-items:flex-start;background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.22)}
+  .callout-ico{font-size:22px;flex:none;line-height:1.3}
+  .callout h4{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#fff;margin-bottom:6px}
+  .callout p{font-size:14.5px;line-height:1.65;color:var(--text2);margin:0}
+  .callout p+p{margin-top:8px}
+  .callout-warn{background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.34)}
+  .callout-warn h4{color:var(--amber)}
+  .callout-danger{background:rgba(248,113,113,.07);border-color:rgba(248,113,113,.32)}
+  .callout-danger h4{color:#FCA5A5}
+
+  /* ===== steps rail (reused journey) ===== */
+  .rail{position:relative;padding-left:clamp(56px,8vw,84px);margin:8px 0 4px}
+  .rail-track{position:absolute;left:clamp(26px,4vw,40px);top:8px;bottom:8px;width:2px;border-radius:2px;background:rgba(167,139,250,.14)}
+  .rail-fill{position:absolute;left:clamp(26px,4vw,40px);top:8px;width:2px;height:0;border-radius:2px;background:linear-gradient(180deg,#22D3EE,#7C3AED,#4F46E5);box-shadow:0 0 16px rgba(124,58,237,.9),0 0 30px rgba(34,211,238,.5)}
+  .comet{position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:var(--cyan);animation:cometPulse 2.4s ease-in-out infinite}
+  .nodes{display:flex;flex-direction:column;gap:clamp(20px,3vw,30px)}
+  .node{position:relative}
+  .node-num{position:absolute;left:calc(-1*clamp(56px,8vw,84px) + clamp(26px,4vw,40px) - 17px);top:4px;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:#fff;background:radial-gradient(circle at 30% 30%,#3B0F6B,#16052E);border:2px solid rgba(167,139,250,.45);box-shadow:0 0 0 5px rgba(10,1,24,.9);transition:transform .35s,box-shadow .35s,border-color .35s}
+  .node-num:hover{transform:scale(1.18);border-color:#22D3EE;box-shadow:0 0 0 5px rgba(10,1,24,.9),0 0 28px rgba(34,211,238,.85)}
+  .node-card{padding:22px 26px;border-radius:18px;background:rgba(124,58,237,.07);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(167,139,250,.18);transition:transform .4s,border-color .4s,box-shadow .4s}
+  .node-card:hover{transform:translateX(6px);border-color:rgba(34,211,238,.45);box-shadow:0 12px 44px rgba(124,58,237,.3)}
+  .node-card h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(18px,2.2vw,22px);color:#fff;margin-bottom:8px}
+  .node-card p{font-size:15px;line-height:1.65;color:var(--text2)}
+  .node-card p+p{margin-top:10px}
+  .node-card strong{color:#E9E4FB}
+  .node-card a{color:var(--cyan);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+  .node-final .node-num{background:radial-gradient(circle at 30% 30%,#7C3AED,#22D3EE);border:2px solid rgba(34,211,238,.6);box-shadow:0 0 0 5px rgba(10,1,24,.9),0 0 28px rgba(34,211,238,.6)}
+  .node-final .node-card{background:linear-gradient(135deg,rgba(124,58,237,.18),rgba(34,211,238,.08));border:1px solid rgba(34,211,238,.35)}
+
+  /* ===== checklist ===== */
+  .checklist{list-style:none;display:flex;flex-direction:column;gap:12px;margin:8px 0}
+  .checklist li{display:flex;gap:13px;align-items:flex-start;padding:15px 18px;border-radius:14px;background:rgba(124,58,237,.06);border:1px solid rgba(167,139,250,.16);font-size:15px;line-height:1.6;color:var(--text2)}
+  .checklist li::before{content:'✓';flex:none;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;background:linear-gradient(135deg,#7C3AED,#22D3EE);box-shadow:0 0 14px rgba(34,211,238,.4);margin-top:1px}
+  .checklist strong{color:#fff}
+
+  /* ===== city highlight panel ===== */
+  .city-panel{position:relative;margin:0 0 12px;padding:clamp(22px,3.6vw,32px);border-radius:22px;display:flex;gap:18px;align-items:flex-start;background:linear-gradient(135deg,rgba(124,58,237,.16),rgba(34,211,238,.08));border:1px solid rgba(34,211,238,.32);box-shadow:0 0 50px rgba(34,211,238,.16)}
+  .city-ico{font-size:34px;flex:none;line-height:1.1}
+  .city-panel h3{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,2.6vw,24px);color:#fff;margin-bottom:10px;letter-spacing:-.4px}
+  .city-panel p{font-size:15px;line-height:1.7;color:var(--text2)}
+  .city-panel p+p{margin-top:8px}
+  .city-panel strong{color:#E9E4FB}
+  .city-tags{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .city-tag{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:#fff;padding:9px 20px;border-radius:999px;background:linear-gradient(120deg,#7C3AED,#3B82F6);box-shadow:0 0 20px rgba(124,58,237,.45)}
+
+  /* ===== recommended vacancies list ===== */
+  .vac-list{display:flex;flex-direction:column;gap:12px;margin:8px 0}
+  .vac-item{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-radius:14px;background:rgba(124,58,237,.06);border:1px solid rgba(167,139,250,.16);transition:border-color .3s,transform .3s,background .3s}
+  .vac-item:hover{border-color:rgba(34,211,238,.4);transform:translateX(4px);background:rgba(124,58,237,.1)}
+  .vac-name{font-size:15.5px;line-height:1.5;font-weight:700;color:#fff;flex:1 1 220px}
+  .vac-name span{color:var(--text2);font-weight:500}
+  .vac-tag{flex:none;font-size:12px;font-weight:700;letter-spacing:.4px;padding:6px 14px;border-radius:999px;white-space:nowrap}
+  .vac-tag-workl{background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.42);color:#8DECFB}
+  .vac-tag-rko{background:rgba(167,139,250,.16);border:1px solid rgba(167,139,250,.45);color:#C9BBFB}
+
+  /* ===== inline cta box ===== */
+  .cta-box{margin-top:36px;padding:28px clamp(22px,4vw,36px);border-radius:22px;text-align:center;background:linear-gradient(135deg,rgba(124,58,237,.16),rgba(59,130,246,.08));border:1px solid rgba(167,139,250,.28);box-shadow:0 0 50px rgba(124,58,237,.22)}
+  .cta-box h3{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(20px,2.8vw,28px);color:#fff;margin-bottom:12px}
+  .cta-box p{font-size:15px;line-height:1.65;color:var(--text2);max-width:560px;margin:0 auto 22px}
+  .cta-btn{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:16px;color:#fff;text-decoration:none;padding:15px 32px;border-radius:999px;background:linear-gradient(120deg,#4F46E5,#3B82F6,#22D3EE);background-size:200% 200%;animation:gradShift 7s ease infinite;box-shadow:0 0 30px rgba(59,130,246,.45);transition:transform .3s}
+  .cta-btn:hover{transform:translateY(-2px)}
+
+  /* ===== soon block ===== */
+  .soon-block{text-align:center;padding:clamp(40px,7vw,64px) 30px;border-radius:26px;background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(59,130,246,.05));border:1px dashed rgba(167,139,250,.35)}
+  .soon-emoji{font-size:48px;margin-bottom:18px}
+  .soon-block h3{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,3vw,30px);color:#fff;margin-bottom:14px}
+  .soon-block p{font-size:16px;line-height:1.65;color:var(--text2);max-width:520px;margin:0 auto 22px}
+
+  /* ===== cta section ===== */
+  .cta-section{position:relative;z-index:1;padding:clamp(70px,11vh,130px) clamp(20px,5vw,40px);text-align:center}
+  .cta-panel{max-width:760px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(24px,5vw,56px);border-radius:30px;background:linear-gradient(135deg,rgba(124,58,237,.16),rgba(59,130,246,.08));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(167,139,250,.28);box-shadow:0 0 70px rgba(124,58,237,.3)}
+  .cta-panel h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(30px,4.8vw,56px);line-height:1.08;letter-spacing:-1px;color:#fff;margin-bottom:18px}
+  .cta-panel p{font-size:clamp(15px,1.8vw,19px);line-height:1.6;color:var(--text2);margin-bottom:36px}
+
+  /* ===== footer ===== */
+  .footer{position:relative;z-index:1;padding:46px clamp(20px,5vw,40px);border-top:1px solid rgba(167,139,250,.12);background:rgba(10,1,24,.5);backdrop-filter:blur(10px)}
+  .footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+  .footer-brand{display:flex;align-items:center;gap:11px}
+  .footer-cube{width:28px;height:28px;border-radius:8px;background:conic-gradient(from 180deg,#7C3AED,#3B82F6,#22D3EE,#7C3AED)}
+  .footer-brand span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:#fff}
+  .footer-links{display:flex;flex-wrap:wrap;gap:12px}
+  .footer-link{font-size:15px;font-weight:600;color:var(--lav);text-decoration:none;padding:9px 18px;border-radius:999px;border:1px solid rgba(167,139,250,.3);transition:border-color .3s,color .3s}
+  .footer-link:hover{border-color:#22D3EE;color:#22D3EE}
+  .copy{font-size:14px;color:var(--text3)}
+
+  /* ===== reveal ===== */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.show{opacity:1;transform:none}
+
+  .link-disabled{cursor:not-allowed;opacity:.7;pointer-events:none}
+
+  @media (max-width:560px){
+    .callout{flex-direction:column;gap:8px}
+  }
+</style>
+</head>
+<body>
+<div class="page" id="page">
+
+  <!-- ===== COSMIC BACKGROUND ===== -->
+  <div class="cosmos" aria-hidden="true">
+    <canvas id="stars"></canvas>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <div class="brand">
+      <div class="logo-cube"></div>
+      <span class="brand-name">Траст Лидс</span>
+      <span class="brand-tag">База знаний</span>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#how">С чего начать</a>
+      <a href="#tools">Инструменты</a>
+      <a href="#hh">hh.ru</a>
+      <a href="#vacancies">Вакансии</a>
+      <a href="#rabota">Работа.ру</a>
+      <a href="#help">Помощь</a>
+    </nav>
+    <div class="nav-right">
+      <a class="btn btn-grad btn-nav" data-link="vk" target="_blank" rel="noopener">Сообщество ВК</a>
+      <button type="button" class="nav-burger" id="navBurger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+
+  <!-- ===== SIDE NAV (scroll dots) ===== -->
+  <nav class="sidenav" id="sidenav" aria-label="Навигация по разделам">
+    <a href="#hero" class="sidenav-dot" data-target="hero"><span class="sidenav-label">Главная</span></a>
+    <a href="#how" class="sidenav-dot" data-target="how"><span class="sidenav-label">С чего начать</span></a>
+    <a href="#tools" class="sidenav-dot" data-target="tools"><span class="sidenav-label">Инструменты</span></a>
+    <a href="#hh" class="sidenav-dot" data-target="hh"><span class="sidenav-label">hh.ru</span></a>
+    <a href="#vacancies" class="sidenav-dot" data-target="vacancies"><span class="sidenav-label">Вакансии</span></a>
+    <a href="#rabota" class="sidenav-dot" data-target="rabota"><span class="sidenav-label">Работа.ру</span></a>
+    <a href="#help" class="sidenav-dot" data-target="help"><span class="sidenav-label">Помощь</span></a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-inner reveal">
+      <div class="badge"><span class="badge-dot"></span>Обучающая платформа · бесплатные инструменты</div>
+      <h1>База знаний<br><span class="grad-text">бесплатных инструментов</span></h1>
+      <p>Пошаговые инструкции, как использовать бесплатные инструменты для размещения вакансий и работы с офферами — подробно, по шагам и без вложений.</p>
+      <div class="hero-actions">
+        <a href="#tools" class="btn btn-grad btn-hero">К инструментам →</a>
+        <a href="#how" class="btn btn-outline">Как пользоваться базой</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW TO USE ===== -->
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="head reveal">
+        <p class="eyebrow">С чего начать</p>
+        <h2 class="h2" style="margin-bottom:20px">Как пользоваться базой</h2>
+        <p class="lead">Каждый инструмент разобран отдельной статьёй — от условий до публикации. Читайте по порядку и сверяйтесь с нами перед важными шагами.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card reveal" style="transition-delay:.05s">
+          <div class="card-icon">📖</div>
+          <h3>Читайте по шагам</h3>
+          <p>Каждая инструкция — это последовательность шагов. Не пропускайте: порядок действий здесь важен и влияет на результат.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:.1s">
+          <div class="card-icon">💬</div>
+          <h3>Сверяйтесь с нами</h3>
+          <p>Перед публикацией креативов и описаний напишите в сообщество ВКонтакте — подскажем, что поправить под конкретный оффер.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:.15s">
+          <div class="card-icon">🎁</div>
+          <h3>Без вложений</h3>
+          <p>Все инструменты в базе — бесплатные. Никаких покупок тарифов и платных размещений со стороны участника.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TOOLS OVERVIEW ===== -->
+  <section class="section" id="tools">
+    <div class="wrap">
+      <div class="head reveal">
+        <p class="eyebrow">Инструменты</p>
+        <h2 class="h2" style="margin-bottom:20px">Бесплатные инструменты</h2>
+        <p class="lead">Список инструментов будет пополняться. Открывайте инструкцию и действуйте по шагам.</p>
+      </div>
+      <div class="tools-grid">
+
+        <div class="tool-card reveal" style="transition-delay:.05s">
+          <span class="badge-pill badge-live">Доступно</span>
+          <div class="tool-logo">hh</div>
+          <div class="tool-num">Инструмент 1</div>
+          <h3>Бесплатная вакансия на hh.ru</h3>
+          <p class="tool-desc">Тариф Pro с автоподнятием — бесплатно, через предложение Альфа-Банка для клиентов с расчётным счётом.</p>
+          <a href="#hh" class="tool-link">Открыть инструкцию →</a>
+        </div>
+
+        <div class="tool-card soon reveal" style="transition-delay:.1s">
+          <span class="badge-pill badge-soon">Скоро</span>
+          <div class="tool-logo">Р</div>
+          <div class="tool-num">Инструмент 2</div>
+          <h3>Работа.ру</h3>
+          <p class="tool-desc">Пошаговый разбор готовится. Скоро здесь появится подробная инструкция по работе с площадкой.</p>
+          <span class="tool-link muted">В подготовке</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ARTICLE 1: hh.ru ===== -->
+  <section class="section" id="hh">
+    <div class="article">
+      <div class="reveal">
+        <p class="eyebrow">Инструмент 1 · hh.ru</p>
+        <h2>Бесплатная вакансия на hh.ru: тариф Pro с автоподнятием</h2>
+        <p class="article-lead">Размещение вакансии на тарифе Pro с автоматическим поднятием — бесплатно. Это предложение предоставляет <strong>Альфа-Банк</strong> своим клиентам.</p>
+      </div>
+
+      <!-- ПОДГОТОВКА: расчётный счёт в Альфа-Банке (обязательное условие) -->
+      <div class="prep reveal">
+        <span class="prep-label">Шаг 0 · Обязательное условие</span>
+        <h3 class="prep-title">Сначала — расчётный счёт в Альфа-Банке</h3>
+        <div class="prose">
+          <p>Если у вас <strong>уже открыт статус ИП</strong> (прошло не менее <strong>3 дней</strong> с момента оповещения от ФНС о внесении в ЕГРИП) — откройте расчётный счёт в Альфа-Банке. Именно благодаря наличию этого счёта Альфа-Банк предоставляет из личного кабинета <strong>Альфа-Бизнес</strong> возможность <strong>бесплатного размещения вакансии на hh.ru</strong> (раздел «Альфа Выгодно»).</p>
+          <p>По ссылке можно сразу назначить встречу с представителем банка — <strong>курьер приедет и откроет счёт моментально</strong>. Выбирайте <strong>бесплатный тариф с нулевым обслуживанием</strong>.</p>
+          <a class="prep-btn" data-link="alfa-meeting" target="_blank" rel="noopener">📅 Назначить встречу с банком →</a>
+        </div>
+
+        <div class="callout callout-warn" style="margin-top:22px">
+          <div class="callout-ico">📄</div>
+          <div>
+            <h4>Держите под рукой лист записи ЕГРИП</h4>
+            <p>Бывает, что в систему банка ещё не успели подгрузиться данные о том, что вы уже ИП. Поэтому держите наготове документ, подтверждающий регистрацию — <strong>лист записи ЕГРИП</strong> (приходит на почту при регистрации). Его и нужно будет показать курьеру. Обычно через два дня после регистрации данные уже на месте.</p>
+          </div>
+        </div>
+
+        <div class="prep-sub">
+          <h4>💳 Дебетовая карта Альфа-Банка</h4>
+          <div class="prose">
+            <p>Если у вас ещё нет дебетовой карты Альфа-Банка — рекомендуем её оформить, чтобы её привёз курьер. <strong>Сначала закажите дебетовую карту</strong>, а потом назначайте встречу для открытия расчётного счёта.</p>
+            <a class="prep-link" data-link="alfa-debit" target="_blank" rel="noopener">Заказать дебетовую карту Альфа →</a>
+            <p>Зачем она может понадобиться: бизнес-карта привязана напрямую к расчётному счёту (можно платить в магазинах и за обычные покупки, кэшбэк до 10&nbsp;%, «Альфа-пятница» — скидки до 100&nbsp;%), но <strong>со второго месяца становится платной — 199&nbsp;₽/мес</strong>. Если решите, что бизнес-карта вам не нужна, сможете выводить деньги с расчётного счёта напрямую на свою дебетовую карту Альфы.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose reveal">
+        <div class="callout callout-warn">
+          <div class="callout-ico">⚠️</div>
+          <div>
+            <h4>Важно прочитать до регистрации</h4>
+            <p>Предложение изначально задумано для <strong>прямых работодателей</strong>, а не для частных рекрутеров и кадровых агентств. Поэтому, чтобы акцию начислили, при регистрации на hh.ru нужно выбрать тип <strong>«Прямой работодатель»</strong>.</p>
+            <p>❌ <strong>Не выбирайте</strong> «Частный рекрутер» или «Кадровое агентство» при регистрации — иначе предложение не начислят.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="subhead reveal">Порядок действий</h3>
+
+      <div class="rail reveal" data-rail>
+        <div class="rail-track"></div>
+        <div class="rail-fill"><span class="comet"></span></div>
+        <div class="nodes">
+
+          <div class="node reveal">
+            <div class="node-num">1</div>
+            <div class="node-card">
+              <h3>Регистрация на hh.ru как прямой работодатель</h3>
+              <p>Перейдите по ссылке и зарегистрируйтесь, выбрав тип <strong>«Прямой работодатель»</strong>: <a data-link="hh" target="_blank" rel="noopener">открыть регистрацию на hh.ru →</a></p>
+              <p>При регистрации понадобятся документы, которые <strong>ФНС присылает на почту при регистрации ИП</strong> — <strong>лист записи ЕГРИП / выписка из ЕГРИП</strong>. Подгрузите их в форму.</p>
+            </div>
+          </div>
+
+          <div class="node reveal">
+            <div class="node-num">2</div>
+            <div class="node-card">
+              <h3>Оформите профиль как бренд</h3>
+              <p>Поставьте аватарку профиля — сгенерируйте в любой нейросети, подберите в Pinterest и т. п. Придумайте название и оформитесь аккуратно: вы должны <strong>выглядеть как бренд</strong> — это вызывает больше доверия.</p>
+              <p>Доверие нужно не только пользователям, но и <strong>модерации hh.ru</strong>. Новый ИП, сразу начавший выкладывать вакансии, почти наверняка попадёт на проверку модерацией — и если где-то допущена ошибка, аккаунт могут заблокировать. <strong>Второй новый аккаунт на hh.ru создать не получится</strong>, поэтому ошибаться нельзя.</p>
+            </div>
+          </div>
+
+          <div class="node reveal">
+            <div class="node-num">3</div>
+            <div class="node-card">
+              <h3>Активируйте предложение в Альфа-Бизнес</h3>
+              <p>Когда профиль готов, зайдите в личный кабинет <strong>Альфа-Бизнес → раздел «Альфа Выгодно»</strong>, найдите предложение hh.ru и активируйте его. После активации вам <strong>позвонит менеджер hh.ru</strong>.</p>
+            </div>
+          </div>
+
+          <div class="node reveal">
+            <div class="node-num">4</div>
+            <div class="node-card">
+              <h3>Разговор с менеджером и начисление вакансии</h3>
+              <p>Скажите менеджеру, что пока не определились с форматом вакансии: <em>«Пока не знаю, какого формата выложить вакансию — хочу, чтобы начислили предложение, а название и детали определю позже»</em>.</p>
+              <p>Вам <strong>начислят бесплатную вакансию</strong> на профиль — её уже можно выкладывать.</p>
+            </div>
+          </div>
+
+          <div class="node reveal">
+            <div class="node-num">5</div>
+            <div class="node-card">
+              <h3>Смените тип регистрации через поддержку</h3>
+              <p>Фактически вы будете размещать вакансию <strong>не в свою компанию</strong>, а работать как частный рекрутер / кадровое агентство. Со временем hh.ru это распознаёт и может заблокировать аккаунт за несоответствие типа. Но <strong>уже начисленную акцию обратно не снимут</strong>.</p>
+              <p>Поэтому <strong>через день-два после начисления</strong> напишите в поддержку, что хотите сменить тип регистрации на <strong>кадровое агентство / частного рекрутера</strong>. Смену проводят за <strong>2–3 дня</strong>, бесплатная вакансия при этом сохраняется.</p>
+            </div>
+          </div>
+
+          <div class="node node-final reveal">
+            <div class="node-num">6</div>
+            <div class="node-card">
+              <h3>Оформите и опубликуйте вакансию</h3>
+              <p>Теперь оформляйте вакансию по офферу — например, в сервис <strong>«Руки»</strong> либо <strong>«КлинЛабс»</strong>. <strong>Не указывайте названия компаний</strong> ни в заголовке вакансии, ни в описании.</p>
+              <p>По некоторым офферам запрещён брендовый контекст — упоминания названия компании в заголовках, баннерах, описаниях. Что можно писать в вашем конкретном случае, а что нет — <strong>уточняйте у нас</strong>.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <h3 class="subhead reveal">Как правильно оформить вакансию</h3>
+      <div class="reveal">
+        <p class="prose" style="margin-bottom:16px">Главное — понятно рассказать о вакансии и дать всё важное для соискателя:</p>
+        <ul class="checklist">
+          <li><span><strong>Кого ищете</strong> — одно-два предложения в пару строк, кратко и по делу.</span></li>
+          <li><span><strong>Обязанности</strong> — что предстоит делать.</span></li>
+          <li><span><strong>Требования к кандидатам</strong> — что важно для отклика.</span></li>
+          <li><span><strong>Условия</strong> — график, формат, что предлагаете.</span></li>
+          <li><span><strong>Зарплата — обязательно вилкой</strong> (например: от 40 000 до 70 000, от 30 000 до 80 000, от 90 000 до 120 000).</span></li>
+          <li><span><strong>Тип оформления — обязательно укажите</strong>: ГПХ или ТК РФ, смотря что прописано в оффере.</span></li>
+          <li><span><strong>Без названий компаний</strong> — ни в заголовке, ни в описании.</span></li>
+        </ul>
+      </div>
+
+      <div class="cta-box reveal">
+        <h3>Нужна помощь с креативами и описанием?</h3>
+        <p>Перед публикацией пришлите креативы и текст в чат сообщества ВКонтакте — обязательно ответим и подскажем, что лучше подправить. По части офферов есть ограничения на брендовый контекст — поможем не нарушить.</p>
+        <a class="cta-btn" data-link="vk" target="_blank" rel="noopener">💬 Написать в сообщество ВК</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHAT TO POST ===== -->
+  <section class="section" id="vacancies">
+    <div class="article">
+      <div class="reveal">
+        <p class="eyebrow">Что выкладывать</p>
+        <h2>Какие вакансии выкладывать</h2>
+        <p class="article-lead">Бесплатная вакансия на hh.ru и Работа.ру даёт возможность бесплатно зайти в самые дорогие регионы — пользуйтесь этим.</p>
+      </div>
+
+      <div class="city-panel reveal">
+        <div class="city-ico">🏙️</div>
+        <div>
+          <h3>Выбирайте крупные города — Москва и Санкт-Петербург</h3>
+          <p>При использовании <strong>бесплатной</strong> вакансии на hh.ru и Работа.ру лучше выбирать крупные города — <strong>Москву и Санкт-Петербург</strong>: в них очень много трафика.</p>
+          <p>Денег из своего кармана мы при этом не тратим. А если бы размещали вакансии за собственные средства, в этих городах они стоили бы в <strong>2–3 раза дороже</strong>, чем в провинции. Так что бесплатное размещение здесь особенно выгодно.</p>
+          <div class="city-tags">
+            <span class="city-tag">Москва</span>
+            <span class="city-tag">Санкт-Петербург</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="subhead reveal">Рекомендуемые вакансии</h3>
+      <div class="reveal">
+        <ul class="vac-list">
+          <li class="vac-item">
+            <span class="vac-name">Клинер <span>(КлинЛабс)</span></span>
+            <span class="vac-tag vac-tag-workl">ВорклПро</span>
+          </li>
+          <li class="vac-item">
+            <span class="vac-name">«Яндекс.Маркет»: <span>кладовщик</span></span>
+            <span class="vac-tag vac-tag-workl">ВорклПро</span>
+          </li>
+          <li class="vac-item">
+            <span class="vac-name">Выездной представитель банков</span>
+            <span class="vac-tag vac-tag-workl">ВорклПро</span>
+          </li>
+          <li class="vac-item">
+            <span class="vac-name">«Сервис быстрой доставки»: <span>кладовщик, комплектовщик готовой еды</span></span>
+            <span class="vac-tag vac-tag-workl">ВорклПро</span>
+          </li>
+          <li class="vac-item">
+            <span class="vac-name">Сервис «Руки»: <span>подключение к заказам</span></span>
+            <span class="vac-tag vac-tag-workl">ВорклПро</span>
+          </li>
+          <li class="vac-item">
+            <span class="vac-name">Burger King: <span>подбор сотрудников</span></span>
+            <span class="vac-tag vac-tag-rko">РКО Груп</span>
+          </li>
+          <li class="vac-item">
+            <span class="vac-name">Efin: <span>выездной представитель банка</span></span>
+            <span class="vac-tag vac-tag-rko">РКО Груп</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="callout reveal">
+        <div class="callout-ico">⭐</div>
+        <div>
+          <h4>Лучший вариант для Работа.ру</h4>
+          <p>На Работа.ру лучше всего заходит <strong>клинер (КлинЛабс) через ВорклПро</strong> — Москва или Санкт-Петербург.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-warn reveal">
+        <div class="callout-ico">📝</div>
+        <div>
+          <h4>Названия партнёров — для выбора оффера, не для публикации</h4>
+          <p>Бренды и сервисы выше — это источники офферов, чтобы вам было проще выбрать. В самой вакансии названия компаний не указывайте — ни в заголовке, ни в описании (см. чек-лист выше). Сомневаетесь, что можно писать — уточните у нас.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ARTICLE 2: Работа.ру ===== -->
+  <section class="section" id="rabota">
+    <div class="article">
+      <div class="reveal">
+        <p class="eyebrow">Инструмент 2 · Работа.ру</p>
+        <h2>Работа.ру</h2>
+      </div>
+      <div class="soon-block reveal">
+        <div class="soon-emoji">🛠️</div>
+        <h3>Раздел в подготовке</h3>
+        <p>Готовим подробную пошаговую инструкцию по работе с площадкой Работа.ру. Скоро она появится здесь — следите за обновлениями в сообществе.</p>
+        <a class="cta-btn" data-link="vk" target="_blank" rel="noopener">🔔 Следить за обновлениями в ВК</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HELP / CTA ===== -->
+  <section class="cta-section" id="help">
+    <div class="cta-panel reveal">
+      <h2>Остались вопросы?</h2>
+      <p>Перед каждым важным шагом сверяйтесь с нами. Пишите в сообщество ВКонтакте — поможем разобраться и подскажем по офферам, креативам и оформлению.</p>
+      <a class="btn btn-grad btn-cta" data-link="vk" target="_blank" rel="noopener">Перейти в сообщество ВК →</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-cube"></div>
+        <span>Траст Лидс · База знаний</span>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" data-link="main" target="_blank" rel="noopener">Основной сайт →</a>
+        <a class="footer-link" data-link="vk" target="_blank" rel="noopener">Сообщество ВК →</a>
+      </div>
+      <span class="copy">© 2026 Траст Лидс</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ===================================================================
+   НАСТРОЙКИ — заполните ссылки здесь. Пустая строка ("") оставляет
+   плейсхолдер: ссылка/кнопка станет неактивной.
+   =================================================================== */
+const CONFIG = {
+  // Сообщество во ВКонтакте
+  vkUrl: "https://vk.ru/trustleadscompany",
+  // Ссылка регистрации работодателя на hh.ru (выбирать тип «Прямой работодатель»)
+  hhRegUrl: "https://clck.ru/3UMcj4",
+  // Встреча с представителем Альфа-Банка для открытия расчётного счёта (курьер)
+  alfaMeetingUrl: "https://clck.ru/3UMfhs",
+  // Заказ дебетовой карты Альфа-Банка
+  alfaDebitUrl: "https://alfa.me/cSTrlD",
+  // Основной сайт проекта
+  mainSiteUrl: "https://start.trust-leads.ru",
+  // Мессенджеры (на будущее, если понадобятся)
+  telegramUrl: "https://t.me/TRUSTLEADSHUB",
+  maxUrl: "https://max.ru/u/f9LHodD0cOKtZ60l2pmxEGOJVHSLsEyPEZePHf1pSg-pUQlcPm8vT_pxGcQ",
+
+  // Фон-звёзды
+  showStars: true,
+  parallax: true,
+  starDensity: 190, // 40..400
+};
+
+(function () {
+  "use strict";
+
+  /* ---------- apply links ---------- */
+  var LINKS = {
+    vk: CONFIG.vkUrl,
+    hh: CONFIG.hhRegUrl,
+    "alfa-meeting": CONFIG.alfaMeetingUrl,
+    "alfa-debit": CONFIG.alfaDebitUrl,
+    main: CONFIG.mainSiteUrl,
+    telegram: CONFIG.telegramUrl,
+    max: CONFIG.maxUrl
+  };
+  document.querySelectorAll("[data-link]").forEach(function (el) {
+    var url = LINKS[el.getAttribute("data-link")];
+    if (url) {
+      el.setAttribute("href", url);
+    } else {
+      el.classList.add("link-disabled");
+      el.removeAttribute("href");
+      el.setAttribute("aria-disabled", "true");
+    }
+  });
+
+  /* ---------- nav burger ---------- */
+  var navBurger = document.getElementById("navBurger");
+  var navLinks = document.getElementById("navLinks");
+  if (navBurger && navLinks) {
+    navBurger.addEventListener("click", function (e) { e.stopPropagation(); navLinks.classList.toggle("open"); });
+    navLinks.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { navLinks.classList.remove("open"); }); });
+    document.addEventListener("click", function (e) {
+      if (navLinks.classList.contains("open") && !navLinks.contains(e.target) && e.target !== navBurger) navLinks.classList.remove("open");
+    });
+  }
+
+  /* ---------- side nav (scroll dots) ---------- */
+  var sideNav = document.getElementById("sidenav");
+  if (sideNav) {
+    var dots = Array.prototype.slice.call(sideNav.querySelectorAll(".sidenav-dot"));
+    var spySections = dots.map(function (d) { return document.getElementById(d.getAttribute("data-target")); }).filter(Boolean);
+    window.addEventListener("scroll", function () {
+      if ((window.scrollY || window.pageYOffset) > window.innerHeight * 0.6) sideNav.classList.add("visible");
+      else sideNav.classList.remove("visible");
+    }, { passive: true });
+    if ("IntersectionObserver" in window) {
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            var id = en.target.id;
+            dots.forEach(function (d) { d.classList.toggle("active", d.getAttribute("data-target") === id); });
+          }
+        });
+      }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+      spySections.forEach(function (s) { spy.observe(s); });
+    }
+    dots.forEach(function (d) { d.addEventListener("click", function () { if (navLinks) navLinks.classList.remove("open"); }); });
+  }
+
+  /* ---------- scroll reveal ---------- */
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+  function show(el) { el.classList.add("show"); }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { show(en.target); io.unobserve(en.target); } });
+    }, { threshold: 0.08, rootMargin: "0px 0px -6% 0px" });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(show);
+  }
+  (function initialReveal() {
+    var vh = window.innerHeight;
+    revealEls.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < vh * 0.92 && r.bottom > 0) show(el);
+    });
+  })();
+
+  /* ---------- steps rail fill on scroll (per rail) ---------- */
+  var rails = Array.prototype.slice.call(document.querySelectorAll(".rail"));
+  function updateRails() {
+    var vh = window.innerHeight;
+    rails.forEach(function (rail) {
+      var fill = rail.querySelector(".rail-fill");
+      if (!fill) return;
+      var r = rail.getBoundingClientRect();
+      var start = vh * 0.78;
+      var p = (start - r.top) / (r.height * 0.82);
+      p = Math.max(0, Math.min(1, p));
+      fill.style.height = (p * 100) + "%";
+    });
+  }
+
+  /* ---------- starfield ---------- */
+  var canvas = document.getElementById("stars");
+  var stars = [], W = 0, H = 0, raf = null, scrollY = 0;
+  function resizeCanvas() {
+    if (!canvas) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.getContext("2d").setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function initStars() {
+    if (!canvas || !CONFIG.showStars) { if (canvas) canvas.style.display = "none"; return; }
+    var ctx = canvas.getContext("2d");
+    resizeCanvas();
+    var count = Math.max(40, Math.min(400, CONFIG.starDensity || 190));
+    stars = [];
+    for (var i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H * 1.6,
+        r: Math.random() * 1.6 + 0.3,
+        depth: Math.random() * 0.8 + 0.2,
+        ph: Math.random() * Math.PI * 2,
+        sp: Math.random() * 0.5 + 0.3
+      });
+    }
+    scrollY = window.scrollY || 0;
+    var par = CONFIG.parallax !== false;
+    function tick(t) {
+      ctx.clearRect(0, 0, W, H);
+      var time = t * 0.001;
+      for (var k = 0; k < stars.length; k++) {
+        var s = stars[k];
+        var off = par ? scrollY * s.depth * 0.25 : 0;
+        var y = (s.y - off) % (H * 1.6);
+        if (y < 0) y += H * 1.6;
+        if (y > H + 4) continue;
+        var a = 0.35 + 0.45 * Math.sin(time * s.sp + s.ph);
+        ctx.globalAlpha = Math.max(0.08, a);
+        var col = s.depth > 0.7 ? "180,210,255" : (s.depth > 0.45 ? "190,160,255" : "150,120,230");
+        ctx.fillStyle = "rgba(" + col + ",1)";
+        ctx.beginPath(); ctx.arc(s.x, y, s.r, 0, Math.PI * 2); ctx.fill();
+        if (s.r > 1.2) { ctx.globalAlpha = Math.max(0.04, a * 0.4); ctx.beginPath(); ctx.arc(s.x, y, s.r * 3, 0, Math.PI * 2); ctx.fill(); }
+      }
+      ctx.globalAlpha = 1;
+      raf = requestAnimationFrame(tick);
+    }
+    raf = requestAnimationFrame(tick);
+  }
+
+  /* ---------- listeners ---------- */
+  window.addEventListener("scroll", function () {
+    scrollY = window.scrollY || window.pageYOffset;
+    updateRails();
+  }, { passive: true });
+  window.addEventListener("resize", resizeCanvas);
+
+  initStars();
+  updateRails();
+})();
+</script>
+</body>
+</html>
