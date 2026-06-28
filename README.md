@@ -26,13 +26,21 @@
 Профиль `academy` в `../.claude/launch.json`:
 `python -m http.server 5510 --directory web-academy` → http://localhost:5510/
 
-## Деплой (по аналогии с лендингом)
-Сайт пойдёт на **новый поддомен** домена `trust-leads.ru` через отдельный
-GitHub-репозиторий и GitHub Pages (как `web/` → start.trust-leads.ru):
-1. Выбрать поддомен (например `school.` / `guide.` / `baza.`).
-2. Создать отдельный публичный репозиторий, залить **только эту папку**.
-3. Добавить `.nojekyll` и `CNAME` (= выбранный поддомен).
-4. В DNS зоны `trust-leads.ru` — запись `CNAME <поддомен> → <user>.github.io.`
-5. В настройках Pages включить сборку с ветки `main`, корень `/`, и Enforce HTTPS.
+## Деплой — GitHub Pages
+Задеплоено отдельным репозиторием **`p4elenok99-cloud/trustleads-academy`**
+(GitHub Pages, ветка `main`, корень `/`). Адрес: **https://baza.trust-leads.ru**.
+В репо есть `.nojekyll` и `CNAME` (= `baza.trust-leads.ru`).
+
+**DNS:** в зоне `trust-leads.ru` нужна запись `CNAME baza → p4elenok99-cloud.github.io.`
+(аналогично `start`). После прописывания DNS GitHub выдаёт сертификат — тогда
+включается Enforce HTTPS.
+
+### Обновление сайта
+```
+git -C web-academy add .
+git -C web-academy commit -m "..."
+git -C web-academy push
+```
+Через ~1 мин Pages пересоберётся.
 
 Основной сайт `trust-leads.ru` и поддомен `start.trust-leads.ru` это не затрагивает.
